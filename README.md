@@ -12,11 +12,13 @@ This repository provides two ways to run the entire stack locally:
 * **-v**: Creates (or uses) a **named volume** (*In this case, it's called 'docker_dbdata'*). This volume is mounted to the directory in the container where PostgreSQL stores its data (`/var/lib/postgresql/data`). This ensures data persists even if the container is deleted.
 * **-p**: Maps a host port → container port (*In this case 5433 = port on your laptop (host) -> 5432 = default Postgres port inside the container*)
 * **postgres:16-alpine** is the official Postgres image; 16 is the version. The image must **ALWAYS** be at the **END** of the `docker run` command.
+
+
 `docker run -d --name postgres_db --env-file ./backend/.env -v docker_dbdata:/var/lib/postgresql/data -p 5433:5432 postgres:16-alpine`
 
 ### Navigate to the backend directory, build the backend image, and then run a container based on that image:
-`cd backend`
-`docker build -t {image-name} .` 
-`docker run -d --name backend_api -p 4000:4000 --env-file ./.env -e PORT=4000 -e PGHOST=host.docker.internal -e PGPORT=5433 -e PGUSER=$PG_USERNAME -e PGPASSWORD=$PG_PASSWORD -e PGDATABASE=$PG_DATABASE {image-name}`
+* `cd backend`
+* `docker build -t {image-name} .` 
+* `docker run -d --name backend_api -p 4000:4000 --env-file ./.env -e PORT=4000 -e PGHOST=host.docker.internal -e PGPORT=5433 -e PGUSER=$PG_USERNAME -e PGPASSWORD=$PG_PASSWORD -e PGDATABASE=$PG_DATABASE {image-name}`
 
 ## Simplified Setup With Docker Compose
