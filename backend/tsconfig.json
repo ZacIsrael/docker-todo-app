@@ -1,0 +1,127 @@
+{
+  "compilerOptions": {
+    /* File structure */
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    /* Target modern Node runtime with ESM syntax */
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2022"],
+
+    /* Type definitions */
+    "types": ["node"],
+    "skipLibCheck": true,
+
+    /* Output helpers */
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+
+    /* Strictness and safety */
+    "strict": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+
+    /* Allow ESM-style imports (needed for "import express from 'express'") */
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+
+    /* Isolated modules for tools like ts-node */
+    "isolatedModules": true,
+
+    /* Make TS treat .ts files as modules even without imports */
+    "moduleDetection": "force"
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}
+
+
+
+// {
+//   "compilerOptions": {
+//     /* File layout */
+//     "rootDir": "./src",
+//     "outDir": "./dist",
+
+//     /* Target runtime & modules */
+//     "target": "ES2022",
+//     "module": "nodenext",
+//     "moduleResolution": "nodenext",
+//     "lib": ["ES2022"],
+
+//     /* Node typings */
+//     "types": ["node"],
+//     "skipLibCheck": true,
+
+//     /* Build outputs (keep if you want source maps and .d.ts) */
+//     "sourceMap": true,
+//     "declaration": true,
+//     "declarationMap": true,
+
+//     /* Safety & strictness */
+//     "strict": true,
+//     "noUncheckedIndexedAccess": true,
+//     "exactOptionalPropertyTypes": true,
+//     "verbatimModuleSyntax": true,
+//     "isolatedModules": true,
+
+//     /* Interop / quality-of-life */
+//     "esModuleInterop": true,
+//     "resolveJsonModule": true,
+
+//     /* Detection */
+//     "moduleDetection": "force"
+//   },
+//   "include": ["src"],
+//   "exclude": ["node_modules", "dist"]
+// }
+
+// {
+//   // Visit https://aka.ms/tsconfig to read more about this file
+//   "compilerOptions": {
+//     // File Layout
+//     "rootDir": "./src",
+//     "outDir": "./dist",
+
+//     // Environment Settings
+//     // See also https://aka.ms/tsconfig/module
+//     "module": "nodenext",
+//     "target": "esnext",
+//     "types": [],
+//     // For nodejs:
+//     // "lib": ["esnext"],
+//     // "types": ["node"],
+//     // and npm install -D @types/node
+
+//     // Other Outputs
+//     "sourceMap": true,
+//     "declaration": true,
+//     "declarationMap": true,
+
+//     // Stricter Typechecking Options
+//     "noUncheckedIndexedAccess": true,
+//     "exactOptionalPropertyTypes": true,
+
+//     // Style Options
+//     // "noImplicitReturns": true,
+//     // "noImplicitOverride": true,
+//     // "noUnusedLocals": true,
+//     // "noUnusedParameters": true,
+//     // "noFallthroughCasesInSwitch": true,
+//     // "noPropertyAccessFromIndexSignature": true,
+
+//     // Recommended Options
+//     "strict": true,
+//     "jsx": "react-jsx",
+//     "verbatimModuleSyntax": true,
+//     "isolatedModules": true,
+//     "noUncheckedSideEffectImports": true,
+//     "moduleDetection": "force",
+//     "skipLibCheck": true,
+//   }
+// }

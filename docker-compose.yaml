@@ -1,0 +1,80 @@
+# Use Docker Compose file format version 3.9 (latest stable major version)
+version: "3.9"
+
+# Define all the services (containers) that make up this multi-container app
+services:
+  # PostgreSQL Service 
+  # This service runs the PostgreSQL database
+  db:
+    # Lightweight Official Postgres 16 image
+    image: postgres:16-alpine
+    # Assign a readable name to the container
+    container_name: postgres_db
+    # Environment variables needed for database setup
+    environment:
+      POSTGRES_USER: ${PG_USERNAME}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${PG_DATABASE}
+    # Map host port 5433 to container port 5432 (Postgres default)
+    ports:
+      - "5433:5432"
+    # Mount volumes to persist and initialize data
+    volumes:
+      # Persist database data locally in a Docker volume
+      # dbdata is the name of a Docker volume that will store the data on the host machine (my computer in this case)
+      # /var/lib/postgresql/data is where PostgreSQL stores all its databases, 
+      # tables, and configuration files inside the container.
+      - dbdata:/var/lib/postgresql/data
+      # Run schema SQL automatically when container first starts
+      - ./backend/src/database/schema-queries.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+    # Healthcheck ensures the DB is ready before other containers depend on it
+    healthcheck:
+      # Command to test database readiness
+      test: ["CMD-SHELL", "pg_isready -U $PG_USERNAME -d $PG_DATABASE"]
+      # How often to check (every 5 seconds)
+      interval: 5s
+      # Timeout for each check (5 seconds)
+      timeout: 5s
+      # Retry up to 10 times before marking as unhealthy
+      retries: 10
+
+  # Backend Service 
+  # This service runs the Node/Express backend API
+  backend:
+    # Name & tag the image that will be built locally by Docker Compose.
+    # If the build step were removed, Docker Compose would try to use a local
+    # zac390/todo-item-backend image; if it doesn't exist, THEN it would 
+    # pull it from Docker Hub.
+    image: zac390/todo-item-backend:latest
+    # Build the image using the Dockerfile inside the backend directory
+    # The build step overrides pulling, so Docker Compose will ALWAYS 
+    # build this image locally
+    build: ./backend
+    # Give the container a readable name
+    container_name: backend_api
+    # Ensure the backend waits for the database to be healthy before starting
+    depends_on:
+      db:
+        condition: service_healthy
+    # Environment variables used by Node app for database connection
+    environment:
+      # Port for Express server to listen on
+      PORT: 4000
+      # PostgreSQL connection details (matches db service)
+      PG_HOST: db
+      PG_PORT: 5432
+      PG_USERNAME: ${PG_USERNAME}
+      PG_PASSWORD: ${PG_PASSWORD}
+      PG_DATABASE: ${PG_DATABASE}
+    # Map host port 4000 to container port 4000 (backend exposed API)
+    ports:
+      - "4000:4000"
+   
+    # volumes:
+    #   - ./backend:/app
+    # command: npm run dev
+
+# Define named volumes for persistent data (kept even after containers stop)
+volumes:
+  # Volume for PostgreSQL data files
+  dbdata:
