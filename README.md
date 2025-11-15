@@ -15,7 +15,7 @@ This repository provides two ways to run the entire stack locally:
 
 
 
-`docker run -d --name postgres_db --env-file ./backend/.env -v docker_dbdata:/var/lib/postgresql/data -p 5433:5432 postgres:16-alpine`
+* `docker run -d --name postgres_db --env-file ./backend/.env -v docker_dbdata:/var/lib/postgresql/data -p 5433:5432 postgres:16-alpine`
 
 ### Navigate to the backend directory build the backend image:
 * `cd backend`
