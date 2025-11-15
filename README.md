@@ -24,7 +24,7 @@ This repository provides two ways to run the entire stack locally:
 ### Run a container based on that image:
 * `docker run -d --name backend_api -p 4000:4000 --env-file ./.env -e PORT=4000 -e PGHOST=host.docker.internal -e PGPORT=5433 -e PGUSER=$PG_USERNAME -e PGPASSWORD=$PG_PASSWORD -e PGDATABASE=$PG_DATABASE {image-name}`
 
-# Test backend api in postman:
+## Test backend api in postman:
 ### Check to see if API is running:
 GET http://localhost:4000/
 ### Get all todo items:
