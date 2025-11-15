@@ -52,7 +52,7 @@ POST http://localhost:4000/api/todos
 Start up both the postgres & backend containers: 
 * `docker compose up --build -d`
 
-# Test backend api in postman:
+## Test backend api in postman:
 ### Check to see if API is running:
 GET http://localhost:4000/
 ### Get all todo items:
@@ -61,7 +61,7 @@ GET http://localhost:4000/api/todos
 POST http://localhost:4000/api/todos
 * Body of post request: `{ "title": "Go to the Gym", "text": ""}`
 
-Clean up:
+## Clean up:
 * `docker compose down`
 
 
