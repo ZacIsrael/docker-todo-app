@@ -14,11 +14,35 @@ This repository provides two ways to run the entire stack locally:
 * **postgres:16-alpine** is the official Postgres image; 16 is the version. The image must **ALWAYS** be at the **END** of the `docker run` command.
 
 
+
 `docker run -d --name postgres_db --env-file ./backend/.env -v docker_dbdata:/var/lib/postgresql/data -p 5433:5432 postgres:16-alpine`
 
-### Navigate to the backend directory, build the backend image, and then run a container based on that image:
+### Navigate to the backend directory build the backend image:
 * `cd backend`
+### Build the backend image:
 * `docker build -t {image-name} .` 
+### Run a container based on that image:
 * `docker run -d --name backend_api -p 4000:4000 --env-file ./.env -e PORT=4000 -e PGHOST=host.docker.internal -e PGPORT=5433 -e PGUSER=$PG_USERNAME -e PGPASSWORD=$PG_PASSWORD -e PGDATABASE=$PG_DATABASE {image-name}`
+
+# Test backend api in postman:
+### Check to see if API is running:
+GET http://localhost:4000/
+### Get all todo items:
+GET http://localhost:4000/api/todos 
+### Add a todo item:
+POST http://localhost:4000/api/todos
+* Body of post request: `{ "title": "Go to the Gym", "text": ""}`
+
+## Clean up:
+
+### Stop both containers
+* `docker stop backend_api`
+* `docker stop postgres_d`
+
+### Remove both containers
+* `docker rm -f backend_api`
+* `docker rm -f postgres_db`
+
+
 
 ## Simplified Setup With Docker Compose
