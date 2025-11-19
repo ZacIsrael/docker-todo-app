@@ -21,7 +21,9 @@ services:
     # Mount volumes to persist and initialize data
     volumes:
       # Persist database data locally in a Docker volume
-      # dbdata is the name of a Docker volume that will store the data on the host machine (my computer in this case)
+      # dbdata is the name of a Docker volume that will store the data on the 
+      # host machine (my computer in this case).
+      #
       # /var/lib/postgresql/data is where PostgreSQL stores all its databases, 
       # tables, and configuration files inside the container.
       - dbdata:/var/lib/postgresql/data
